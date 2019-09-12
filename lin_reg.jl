@@ -17,3 +17,5 @@ cars = RDatasets.dataset("datasets", "cars")
 
 post = nuts(lin_reg(speed = cars.Speed), (dist = cars.Dist,)) |> particles
 println(post)
+println("Compare to:")
+println("(σ: 15.068462 ± 1.51, β: 3.921415 ± 0.41, α: -17.40014 ± 6.60)")

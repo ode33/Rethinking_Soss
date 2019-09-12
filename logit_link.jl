@@ -2,7 +2,7 @@
 
 using Soss, CSV
 
-varying_intercepts = @model (applications, male) begin
+logit_link = @model (applications, male) begin
     α ~ Normal(0,10)
     β ~ Normal(0,1)
     p = logistic.(α .+ β .* male)
@@ -18,5 +18,7 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = nuts(varying_intercepts(applications = applications, male = male), (admit = admit,)) |> particles
+post = nuts(logit_link(applications = applications, male = male), (admit = admit,)) |> particles
 println(post)
+println("Compare to:")
+println("(β = 0.61 ± 0.06, α = -0.83 ± 0.05)")
