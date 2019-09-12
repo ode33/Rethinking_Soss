@@ -1,8 +1,10 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
 
+println("MLE not supported at this time C-c to abort")
+
 using Soss, RDatasets
 
-cars_formula2 = @model (speed, dist) begin
+lin_reg2 = @model speed begin
     α = mean(dist)
     β = 0
     σ = std(dist)
@@ -15,5 +17,5 @@ end
 
 cars = RDatasets.dataset("datasets", "cars")
 
-post = nuts(cars_formula2, (speed = cars.Speed, dist = cars.Dist)) |> particles
+post = nuts(lin_reg2(speed = cars.Speed), (dist = cars.Dist,)) |> particles
 println(post)
