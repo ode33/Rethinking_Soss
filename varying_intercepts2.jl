@@ -2,12 +2,14 @@
 
 using Soss, CSV
 
-varying_intercepts = @model (dept_id, applications, male) begin
-    α ~ For(dept_id) do id
-        Normal(0,10)
-    end
+varying_intercepts2 = @model (applicatons, dept_id, male) begin
+    σ ~ Cauchy(0,2.5)
+    ā ~ Normal(0,10)
     β ~ Normal(0,1)
-    p = logistic.(α .+ β .* male)
+    a ~ For(dept_id) do id
+        Normal(ā,σ)
+    end
+    p = logistic.(a + b*male)
     N = length(male)
     admit ~ For(1:N) do n
         Binomial(applications[n], p[n])
@@ -21,5 +23,5 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = nuts(varying_intercepts(dept_id = dept_id, applications = applications, male = male), (admit = admit,))
+post = nuts(varying_intercepts2(applications = applications, dept_id = dept_id, male = male), (admit = admit,)) |> particles
 println(post)
