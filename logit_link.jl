@@ -18,7 +18,7 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = nuts(logit_link(applications = applications, male = male), (admit = admit,)) |> particles
+post = dynamicHMC(logit_link(applications = applications, male = male), (admit = admit,)) |> particles
 println(post)
 println("Compare to:")
 println("(β = 0.61 ± 0.06, α = -0.83 ± 0.05)")

@@ -3,7 +3,7 @@
 using Soss
 
 binormal = @model (μ,σ) begin
-    y ~ MulivariteNormal(μ,σ)
+    y ~ MulivariateNormal(μ,σ)
 end
 
 μ = [0.,0]

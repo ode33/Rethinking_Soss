@@ -9,7 +9,7 @@ end
 
 N = 10; k = 5
 
-post = nuts(binomial(N=N), (k=k,)) |> particles
+post = dynamicHMC(binomial(N=N), (k=k,)) |> particles
 println(post)
 println("Compare to:")
 println("(θ = 0.5 ± 0.29)")

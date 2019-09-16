@@ -17,5 +17,5 @@ end
 
 cars = RDatasets.dataset("datasets", "cars")
 
-post = nuts(lin_reg2(speed = cars.Speed), (dist = cars.Dist,)) |> particles
+post = dynamicHMC(lin_reg2(speed = cars.Speed), (dist = cars.Dist,)) |> particles
 println(post)

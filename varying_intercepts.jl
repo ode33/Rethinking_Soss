@@ -21,5 +21,5 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = nuts(varying_intercepts(dept_id = dept_id, applications = applications, male = male), (admit = admit,))
+post = dynamicHMC(varying_intercepts(dept_id = dept_id, applications = applications, male = male), (admit = admit,))
 println(post)

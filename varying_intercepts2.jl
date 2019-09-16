@@ -23,5 +23,5 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = nuts(varying_intercepts2(applications = applications, dept_id = dept_id, male = male), (admit = admit,)) |> particles
+post = dynamicHMC(varying_intercepts2(applications = applications, dept_id = dept_id, male = male), (admit = admit,)) |> particles
 println(post)
