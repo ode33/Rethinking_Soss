@@ -1,12 +1,13 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
-
-using Soss
+using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
+using Soss, LinearAlgebra
 
 binormal = @model (μ,σ) begin
-    y ~ MulivariateNormal(μ,σ)
+    y ~ MultivariateNormal(μ,σ)
 end
 
-μ = [0.,0]
-σ = [1 1; .1 .1]
+μ = [0.,0,0,0,0]
+σ = Array{Float64}(rand(5,5))
+σ = σ*σ'
 
-println(rand(binormal(μ=μ,σ=σ)))
+isposdef(σ) && println(rand(binormal(μ=μ,σ=σ)))

@@ -1,5 +1,5 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-
+using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
 using Soss, RDatasets
 
 lin_reg = @model speed begin

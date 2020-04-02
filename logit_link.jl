@@ -1,5 +1,6 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-
+using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
+cd("/home/oliver/Languages/Julia/Soss/Rethinking_Soss")
 using Soss, CSV
 
 logit_link = @model (applications, male) begin

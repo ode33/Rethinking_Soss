@@ -1,5 +1,6 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-
+using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
+cd("/home/oliver/Languages/Julia/Soss/Rethinking_Soss/")
 using Soss, CSV
 
 varying_intercepts = @model (dept_id, applications, male) begin
@@ -14,7 +15,7 @@ varying_intercepts = @model (dept_id, applications, male) begin
     end
 end
 
-ucb = CSV.read("UCBadmit.csv")
+ucb = CSV.read("./UCBadmit.csv")
 
 dept_id = ucb.dept_id
 applications = ucb.applications
