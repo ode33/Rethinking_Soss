@@ -6,14 +6,13 @@ dyes = @model (batches, samples)  begin
     N = length(batches)
 
     θ ~ Normal(0.0, 1E5)
-    τ₁ ~ Gamma(0.001, 0.001) |> iid(N)
-    τ₂ ~ Gamma(0.001, 0.001) |> iid(N)
+    τ₁ ~ Gamma(0.001, 0.001)
+    τ₂ ~ Gamma(0.001, 0.001)
 
     σ₁ = 1 / sqrt(τ₁)
     σ₂ = 1 / sqrt(τ₂)
 
-    μ ~ Normal(θ, σ₁)
-
+    μ ~ Normal(θ, σ₁) |> iid(N)
     y ~ For(1:N) do n
         Normal(μ[n], σ₂)
     end
@@ -30,7 +29,8 @@ y = reshape([
     [1495, 1560, 1545, 1625, 1445]
 ], 6, 5)
 
-post = dynamicHMC(dyes(batches=batches, samples=samples), (y=y,))
-println(particles(post))
+# post = dynamicHMC(dyes(batches=batches, samples=samples), (y=y,))
+# println(particles(post))
+println(rand(dyes(batches=batches, samples=samples)))
 println("Compare to:")
 println("τ₂ = 3.9e-4 ± 1.2e-4, τ₁ = 1.3e-3 ± 2.8e-3, θ = 1.5e3 ± 2.2e1, μ = 1.5e3 ± 2.0e1")
