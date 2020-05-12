@@ -1,5 +1,4 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
-using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
 using Soss
 
 binomial = @model N begin

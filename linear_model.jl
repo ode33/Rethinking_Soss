@@ -1,5 +1,4 @@
 # Example taken from https://github.com/cscherrer/Soss.jl
-using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss")
 using Soss, Random
 
 Random.seed!(3)

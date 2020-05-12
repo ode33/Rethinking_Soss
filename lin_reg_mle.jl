@@ -1,5 +1,4 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-using Pkg; Pkg.activate("/home/oliver/Languages/Julia/Soss/")
 println("MLE not supported at this time C-c to abort")
 
 using Soss, RDatasets
