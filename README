@@ -1,0 +1,8 @@
+Julia Version 1.7.0-DEV.973
+Commit bb5b98e72a* (2021-04-20 18:46 UTC)
+Platform Info:
+  OS: Linux (x86_64-linux-gnu)
+  CPU: Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz
+  WORD_SIZE: 64
+  LIBM: libopenlibm
+  LLVM: libLLVM-11.0.1 (ORCJIT, skylake)

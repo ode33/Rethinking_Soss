@@ -1,7 +1,10 @@
 # Example taken from https://github.com/cscherrer/Soss.jl
-using Soss, MeasureTheory, SampleChainsDynamicHMC, Random
+using MeasureTheory
+using Random
+using SampleChainsDynamicHMC
+using Soss
 
-Random.seed!(3);
+Random.seed!(2021);
 
 model = @model X begin
     p  = size(X, 2)
@@ -49,6 +52,6 @@ display(posterior)
 
 posterior_predictive = predictive(model, :β)
 y_ppc = [rand(posterior_predictive(;X=X, p...)).y for p in posterior]
-ppc = y_true .- y_ppc
+#  ppc = y_true - y_ppc
 proposal = weightedSample(model(X=X), (y=y_true,))
 @show proposal.β;

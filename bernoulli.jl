@@ -1,5 +1,7 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
-using MeasureTheory, Soss, SampleChainsDynamicHMC
+using MeasureTheory 
+using SampleChainsDynamicHMC
+using Soss
 
 bernoulli = @model N begin
     θ ~ Beta(1,1)

@@ -1,7 +1,10 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
 println("MLE not supported at this time C-c to abort")
 
-using Soss, RDatasets
+using MeasureTheory
+using RDatasets
+using SampleChainsDynamicHMC
+using Soss
 
 lin_reg2 = @model speed begin
     α = mean(dist)
@@ -16,5 +19,5 @@ end
 
 cars = RDatasets.dataset("datasets", "cars")
 
-post = dynamicHMC(lin_reg2(speed = cars.Speed), (dist = cars.Dist,)) |> particles
-println(post)
+post = sample(DynamicHMCChain, lin_reg2(speed = cars.Speed) | (dist = cars.Dist,))
+display(post)

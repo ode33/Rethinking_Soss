@@ -1,4 +1,7 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
+using Distributions
+using MeasureTheory
+using SampleChainsDynamicHMC
 using Soss
 
 dyes = @model (batches, samples)  begin
@@ -28,8 +31,9 @@ y = reshape([
     [1495, 1560, 1545, 1625, 1445]
 ], 6, 5)
 
-# post = dynamicHMC(dyes(batches=batches, samples=samples), (y=y,))
-# println(particles(post))
-println(rand(dyes(batches=batches, samples=samples)))
+#  post = Soss.sample(DynamicHMCChain, dyes(batches=batches, samples=samples) | (y=y,))
+#  display(post)
+#  println("")
+#  println(rand(dyes(batches=batches, samples=samples)))
 println("Compare to:")
 println("τ₂ = 3.9e-4 ± 1.2e-4, τ₁ = 1.3e-3 ± 2.8e-3, θ = 1.5e3 ± 2.2e1, μ = 1.5e3 ± 2.0e1")

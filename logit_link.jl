@@ -1,5 +1,8 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-using Soss, CSV
+using CSV
+using MeasureTheory
+using SampleChainsDynamicHMC
+using Soss
 
 logit_link = @model (applications, male) begin
     α ~ Normal(0,10)
@@ -17,7 +20,8 @@ applications = ucb.applications
 male = ucb.male
 admit = ucb.admit
 
-post = dynamicHMC(logit_link(applications = applications, male = male), (admit = admit,)) |> particles
-println(post)
+post = sample(DynamicHMCChain, logit_link(applications=applications, male=male) | (admit=admit,))
+display(post)
+println("")
 println("Compare to:")
-println("(β = 0.61 ± 0.06, α = -0.83 ± 0.05)")
+println("(β = 0.61±0.06, α = -0.83±0.05)")
