@@ -1,5 +1,5 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
-using Soss
+using MeasureTheory, Soss, SampleChainsDynamicHMC
 
 bernoulli = @model N begin
     θ ~ Beta(1,1)
@@ -9,7 +9,8 @@ end
 N = 10
 X = [0,1,0,1,0,0,0,0,0,1]
 
-post = dynamicHMC(bernoulli(N=N), (X=X,))
-println(particles(post))
+post = sample(DynamicHMCChain, bernoulli(N=N) | (X=X,))
+display(post)
+println("")
 println("Compare to:")
-println("θ = 0.33 ± 0.003")
+println("(θ = 0.33±0.003)")

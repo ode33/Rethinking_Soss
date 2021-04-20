@@ -1,7 +1,7 @@
 # Example taken from https://github.com/cscherrer/Soss.jl
-using Soss, Random
+using Soss, MeasureTheory, SampleChainsDynamicHMC, Random
 
-Random.seed!(3)
+Random.seed!(3);
 
 model = @model X begin
     p  = size(X, 2)
@@ -23,33 +23,32 @@ end;
     #  end
 #  end;
 
-X = randn(6,2)
-truth = rand(model(X=X))
-pairs(truth)
+X = randn(6,2);
+truth = rand(model(X=X));
+pairs(truth);
 
-num_rows = 1_000
-num_features = 2
-X = randn(num_rows, num_features)
+num_rows = 1_000;
+num_features = 2;
+X = randn(num_rows, num_features);
 
-β_true = [2.,-1]
-α_true = 1.
-σ_true = .5
+β_true = [2.0,-1.0];
+α_true = 1.0;
+σ_true = 0.5;
 
-η_true = α_true .+ X * β_true
-μ_true = η_true
-noise = randn(num_rows) .* σ_true
-y_true = μ_true .+ noise
+η_true = α_true .+ X * β_true;
+μ_true = η_true;
+noise = randn(num_rows) .* σ_true;
+y_true = μ_true .+ noise;
 
-posterior = dynamicHMC(model(X=X), (y=y_true,))
-particles(posterior)
-pairs(particles(posterior))
+posterior = sample(DynamicHMCChain, model(X=X) | (y=y_true,))
+display(posterior)
+#println("");
+#pairs(posterior);
 
 @show σ_true; @show α_true; @show β_true;
-posterior_predictive = predictive(model, :β)
-y_ppc = [rand(posterior_predictive(;X=X, p...)).y for p in posterior]
-y_true - particles(y_ppc)
 
-ℓ, proposal = weightedSample(model(X=X), (y=y_true,));
-
-println(ℓ)
-println(proposal.β)
+posterior_predictive = predictive(model, :β);
+y_ppc = [rand(posterior_predictive(;X=X, p...)).y for p in posterior];
+ppc = y_true - display(y_ppc);
+proposal = weightedSample(model(X=X), (y=y_true,));
+@show proposal.β;

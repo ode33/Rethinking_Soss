@@ -1,5 +1,5 @@
 # Example taken from https://github.com/StanJulia/CmdStan.jl
-using Soss, LinearAlgebra
+using Distributions, Soss, LinearAlgebra, MeasureTheory
 
 binormal = @model (μ,σ) begin
     y ~ MultivariateNormal(μ,σ)

@@ -1,5 +1,5 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-using Soss, RDatasets
+using Soss, MeasureTheory, SampleChainsDynamicHMC, RDatasets
 
 lin_reg = @model speed begin
     σ ~ Uniform(0,50)
@@ -14,7 +14,8 @@ end
 
 cars = RDatasets.dataset("datasets", "cars")
 
-post = dynamicHMC(lin_reg(speed = cars.Speed), (dist = cars.Dist,)) |> particles
-println(post)
+post = sample(DynamicHMCChain, lin_reg(speed = cars.Speed) | (dist = cars.Dist,))
+display(post)
+println("")
 println("Compare to:")
 println("(σ: 15.068462 ± 1.51, β: 3.921415 ± 0.41, α: -17.40014 ± 6.60)")
