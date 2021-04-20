@@ -1,5 +1,6 @@
 # taken from https://github.com/cscherrer/Soss.jl/issues/259
-using Soss, MeasureTheory
+using MeasureTheory
+using Soss
 using Soss: Dists
 
 m1 = @model begin

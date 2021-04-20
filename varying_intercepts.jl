@@ -1,5 +1,9 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
-using Soss, CSV
+using CSV
+using DataFrames
+using MeasureTheory
+using SampleChainsDynamicHMC
+using Soss 
 
 varying_intercepts = @model (dept_id, applications, male) begin
     α ~ For(dept_id) do id
@@ -13,12 +17,13 @@ varying_intercepts = @model (dept_id, applications, male) begin
     end
 end
 
-ucb = CSV.read("./UCBadmit.csv")
+ucb = CSV.read("./UCBadmit.csv", DataFrame)
 
-dept_id = ucb.dept_id
-applications = ucb.applications
-male = ucb.male
 admit = ucb.admit
+applications = ucb.applications
+dept_id = ucb.dept_id
+male = ucb.male
 
-post = dynamicHMC(varying_intercepts(dept_id = dept_id, applications = applications, male = male), (admit = admit,))
-println(post)
+post = sample(DynamicHMCChain, varying_intercepts(dept_id=dept_id, applications=applications, male=male) | (admit=admit,))
+display(post)
+println("")
