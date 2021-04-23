@@ -12,7 +12,7 @@ varying_intercepts2 = @model (applicatons, dept_id, male) begin
     a ~ For(dept_id) do id
         Normal(ā,σ)
     end
-    p = logistic.(a + β * male)
+    p = logistic.(a + β*male)
     N = length(male)
     admit ~ For(1:N) do n
         Binomial(applications[n], p[n])

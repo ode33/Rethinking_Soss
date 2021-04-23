@@ -6,7 +6,7 @@ using Soss
 santaclara = @model (nsample, nspec, nsens) begin
   p = rand()
   sens = rand()
-  spec = rand();
+  spec = rand()
   psample = p * sens + (1 - p) * (1 - spec)
   ysample ~ Binomial(nsample, psample)
   ysens ~ Binomial(nsens, sens)
@@ -20,6 +20,6 @@ ysample = 50
 ysens = 103
 yspec = 399
 
-post = sample(DynamicHMCChain, santaclara(nsample = nsample, nspec=nspec, nsens=nsens) | (ysample=ysample, yspec=yspec, ysens=ysens))
+post = sample(DynamicHMCChain, santaclara(nsample=nsample, nspec=nspec, nsens=nsens) | (ysample=ysample, yspec=yspec, ysens=ysens))
 display(post)
 println("")

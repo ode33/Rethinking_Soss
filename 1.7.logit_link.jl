@@ -1,5 +1,6 @@
 # Example taken from https://github.com/rmcelreath/rethinking_manual
 using CSV
+using DataFrames
 using MeasureTheory
 using SampleChainsDynamicHMC
 using Soss
@@ -14,7 +15,7 @@ logit_link = @model (applications, male) begin
     end
 end
 
-ucb = CSV.read("./UCBadmit.csv")
+ucb = CSV.read("./UCBadmit.csv", DataFrame)
 
 applications = ucb.applications
 male = ucb.male
