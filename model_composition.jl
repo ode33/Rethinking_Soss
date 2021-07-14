@@ -17,3 +17,16 @@ mm = m2(m=m1())
 display(mm)
 display(xform(mm|(t=1.0,)))
 println("")
+
+# nested models
+m3 = @model p begin
+  y ~ Bernoulli(1-p)
+  x ~ Bernoulli(p)
+end
+
+m4 = @model begin
+  p ~ Uniform()
+  nt ~ m3(p = p)
+end
+
+rand(m4)
